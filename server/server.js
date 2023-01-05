@@ -13,7 +13,7 @@ const io = require('socket.io')(server, {
 const PORT = 3001;
 
 const rooms = new Map();
-
+app.use(cors());
 app.get('/', function (req, res) {
   console.log('Hello from slash');
   res.send('Hello from Node Main');
