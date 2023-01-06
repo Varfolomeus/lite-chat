@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rnLesson1",
-    "slug": "rnLesson1",
+    "name": "rnlesson3",
+    "slug": "rnlesson3",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.varfolomeus.rnlesson3"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "299e687d-746e-4962-9bb1-5e6e50e8bc64"
+      }
     }
   }
 }

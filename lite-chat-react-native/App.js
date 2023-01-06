@@ -1,13 +1,12 @@
 import React from 'react';
-import reducer from './src/components/reducer';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView, View, FlatList } from 'react-native';
-import JoinBlock from './src/components/JoinBlock';
-import Chat from './src/components/Chat';
+import { StyleSheet, View } from 'react-native';
 import axios from 'axios';
-import socket from './src/components/socket';
+import reducer from './src/Conponents/reducer';
+import Chat from './src/Conponents/Chat';
+import JoinBlock from './src/Conponents/JoinBlock';
+import { currentIp, socket } from './src/Conponents/socket';
 
-function App() {
+export default function App() {
   const [state, dispatch] = React.useReducer(reducer, {
     joined: false,
     roomId: null,
@@ -24,7 +23,7 @@ function App() {
     });
     socket.emit('ROOM:JOIN', loginToSocketData);
     const { data } = await axios.get(
-      `http://192.168.42.30:3001/rooms/${loginToSocketData.roomId}`
+      `${currentIp}/rooms/${loginToSocketData.roomId}`
     );
     // console.log('data', data);
     dispatch({
@@ -38,13 +37,11 @@ function App() {
       payload: users,
     });
   };
-
   const addMessage = (message) => {
     dispatch({
       type: 'NEW_MESSAGE',
       payload: message,
     });
-    // console.log(message);
   };
 
   React.useEffect(() => {
@@ -52,8 +49,6 @@ function App() {
     socket.on('ROOM:NEW_MESSAGE', addMessage);
   }, []);
 
-  // window.socket = socket;
-  // console.log(state.users);
   return (
     <View style={styles.rootstyle}>
       {!state.joined ? (
@@ -61,18 +56,26 @@ function App() {
       ) : (
         <Chat {...state} onAddMessage={addMessage} />
       )}
-      <StatusBar style="auto" />
     </View>
   );
 }
 
-export default App;
-
 const styles = StyleSheet.create({
-
   rootstyle: {
-    height: 500,
-    maxWidth: 700,
+    maxHeight: '100%',
+    maxWidth: '100%',
   },
-
+  container: {
+    height: '80%',
+    maxWidth: '90%',
+  },
+  content: {
+    maxHeight: 600,
+    maxWidth: 500,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  text: {
+    color: '#fff',
+  },
 });
