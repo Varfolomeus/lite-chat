@@ -1,6 +1,10 @@
 # Getting Started with Create React App
 
-see how it works here https://youtu.be/ArWzgAvW8VE
+See how it works here https://youtu.be/ArWzgAvW8VE
+Ready to use simple Android application: https://drive.google.com/file/d/1T2rtAhp-2ruVZcwFKqKoIUAKd1WSJOMp/view?usp=share_link
+Used ip address 192.168.68.113 - it can be changed in socket.js, path: /lite-chat-react-native/src/Conponents/
+File socket on path: /lite-chat/chat-lite/src/ modifiing not needed, used proxy on localhost in /package.json. If needed change proxy URL to use application on remote server.
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
