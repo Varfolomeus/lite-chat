@@ -12,23 +12,21 @@ import { socket } from './socket';
 function Chat({ users, messages, user, roomId, onAddMessage }) {
   const [messageValue, setMessageValue] = React.useState('');
   const messagesRef = React.useRef(null);
-  // console.log('user', user);
 
   const onSendMessage = () => {
-    // console.log('user', user);
+    if (!messageValue) {
+      return;
+    }
     socket.emit('ROOM:NEW_MESSAGE', {
       user,
       roomId,
       text: messageValue,
     });
-    // console.log('user', user);
     onAddMessage({ user, text: messageValue });
     setMessageValue('');
   };
 
   React.useEffect(() => {
-    // console.log('user', user);
-    // console.log('messages', messages);
     if (messages.length > 5) {
       messagesRef.current.scrollToIndex({
         animated: true,
@@ -109,19 +107,17 @@ function Chat({ users, messages, user, roomId, onAddMessage }) {
           <TextInput
             multiline={true}
             numberOfLines={3}
-            style={{
-              color: user.userTextColor,
-              backgroundColor: user.userColor,
-              maxHeight: '100%',
-              maxWidth: '100%',
-              borderWidth: 1,
-              padding: 15,
-              // lineHeight: '1.2em',
-            }}
+            style={[
+              {
+                color: user.userTextColor,
+                backgroundColor: user.userColor,
+              },
+              styles.textInputArea,
+            ]}
             value={messageValue}
             onChangeText={setMessageValue}
           />
-          <Button onPress={onSendMessage} title={'Send'} />
+          <Button color="#112c60" onPress={onSendMessage} title={'Send'} />
         </View>
       </View>
     </View>
@@ -136,10 +132,9 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     position: 'relative',
-    // overflow: 'hidden',
   },
   chatUsers: {
-    backgroundColor: 'lightgray',
+    backgroundColor: '#b6d8cc',
     borderWidth: 1,
     height: 500,
     width: 100,
@@ -209,5 +204,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     fontSize: 30,
     padding: 5,
+  },
+  textInputArea: {
+    maxHeight: '100%',
+    maxWidth: '100%',
+    borderWidth: 1,
+    padding: 15,
   },
 });

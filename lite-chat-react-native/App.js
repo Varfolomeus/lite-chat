@@ -16,19 +16,19 @@ export default function App() {
   });
 
   const onLogin = async (loginToSocketData) => {
-    // console.log('loginToSocketData', loginToSocketData);
+  
     dispatch({
       type: 'JOINED',
       payload: loginToSocketData,
     });
     socket.emit('ROOM:JOIN', loginToSocketData);
-    const { data } = await axios.get(
+    const res = await axios.get(
       `${currentIp}/rooms/${loginToSocketData.roomId}`
     );
-    // console.log('data', data);
+
     dispatch({
       type: 'SET_DATA',
-      payload: data,
+      payload: res.data,
     });
   };
   const setUsers = (users) => {
@@ -64,18 +64,5 @@ const styles = StyleSheet.create({
   rootstyle: {
     maxHeight: '100%',
     maxWidth: '100%',
-  },
-  container: {
-    height: '80%',
-    maxWidth: '90%',
-  },
-  content: {
-    maxHeight: 600,
-    maxWidth: 500,
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-  },
-  text: {
-    color: '#fff',
   },
 });
